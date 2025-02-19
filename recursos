@@ -1,0 +1,118 @@
+### **1️⃣ ¿Qué son los endpoints?**  
+Los **endpoints** son las URLs o rutas de una API donde los clientes (como una app, una web o Postman) pueden enviar y recibir datos. En nuestro caso, hemos creado tres endpoints en `MetricController.php`:
+
+| Método | URL | Función |
+|--------|-----|---------|
+| **POST** | `/api/metrics` | Guarda una nueva métrica en la BD |
+| **GET** | `/api/metrics/{id}` | Obtiene una métrica por ID |
+| **DELETE** | `/api/metrics/{id}` | Elimina una métrica |
+
+📌 En resumen, son "puertas de entrada" que permiten interactuar con la API.
+
+---
+
+### **2️⃣ Probar los Endpoints con Postman**  
+Ahora vamos a probar los endpoints usando **Postman** o `curl`. Si no tienes Postman, dime y te explico cómo usar `curl` en terminal.
+
+#### **🟢 Prueba 1: Crear una métrica (`POST /api/metrics`)**  
+1. Abre **Postman** y selecciona **POST**.  
+2. Usa la URL: `http://tu-api.local/api/metrics`  
+3. Ve a la pestaña **Body**, elige **raw** y **JSON**, y envía este cuerpo:  
+
+```json
+{
+    "product_id": 1,
+    "pharmacy_id": 5,
+    "old_price": 10.50,
+    "new_price": 9.99,
+    "old_stock": 100,
+    "new_stock": 95,
+    "source": "API externa"
+}
+```
+4. Pulsa **Send**. Si todo está bien, debería responder algo así:  
+
+```json
+{
+    "message": "Métrica almacenada correctamente",
+    "data": {
+        "id": 1,
+        "product_id": 1,
+        "pharmacy_id": 5,
+        "old_price": 10.50,
+        "new_price": 9.99,
+        "old_stock": 100,
+        "new_stock": 95,
+        "source": "API externa",
+        "created_at": "2025-02-18T12:00:00.000000Z"
+    }
+}
+```
+
+---
+
+#### **🔵 Prueba 2: Obtener una métrica (`GET /api/metrics/{id}`)**  
+1. Selecciona **GET** en Postman.  
+2. Usa la URL: `http://tu-api.local/api/metrics/1` (reemplaza `1` por un ID válido).  
+3. Pulsa **Send**. Si existe, debería devolver:  
+
+```json
+{
+    "id": 1,
+    "product_id": 1,
+    "pharmacy_id": 5,
+    "old_price": 10.50,
+    "new_price": 9.99,
+    "old_stock": 100,
+    "new_stock": 95,
+    "source": "API externa",
+    "created_at": "2025-02-18T12:00:00.000000Z"
+}
+```
+Si el ID no existe, devuelve:  
+```json
+{
+    "error": "Métrica no encontrada"
+}
+```
+
+---
+
+#### **🔴 Prueba 3: Eliminar una métrica (`DELETE /api/metrics/{id}`)**  
+1. Selecciona **DELETE** en Postman.  
+2. Usa la URL: `http://tu-api.local/api/metrics/1` (reemplaza `1` por un ID válido).  
+3. Pulsa **Send**. Si se elimina correctamente, devuelve:  
+```json
+{
+    "message": "Métrica eliminada correctamente"
+}
+```
+Si no existe, devuelve:  
+```json
+{
+    "error": "Métrica no encontrada o no pudo eliminarse"
+}
+```
+
+---
+
+### **3️⃣ ¿Cuánto tardaría este proyecto en condiciones normales?**  
+Si alguien lo hiciera sin IA y dependiendo de la experiencia, estos serían los tiempos aproximados:  
+
+| Tarea | Tiempo estimado |
+|-------|---------------|
+| Planificación (definir requerimientos, endpoints, estructura) | 2-4 horas |
+| Creación del modelo y migraciones en Laravel | 1-2 horas |
+| Implementación del repositorio y servicio | 3-5 horas |
+| Creación del controlador y endpoints | 3-4 horas |
+| Pruebas y corrección de errores | 3-6 horas |
+| Documentación y optimización | 2-4 horas |
+
+**Total estimado:** **Entre 14 y 25 horas** (dependiendo del nivel de experiencia).  
+
+🔹 **Si lo hace un junior**: 3-5 días.  
+🔹 **Si lo hace un senior**: 1-2 días.  
+
+Como lo estamos haciendo juntos y te explico cada paso, puede que te lleve un poco más, pero al mismo tiempo estás aprendiendo un montón.
+
+📌 **¿Tienes alguna duda o hacemos más pruebas?**
