@@ -9,7 +9,10 @@ use App\Models\Log;
 
 class LogsDashboard extends Page
 {
-    protected $view = 'filament.pages.logs-dashboard';  
+    public static $view = 'filament.pages.logs-dashboard';
+
+
+
 
     public function mount(): void
     {

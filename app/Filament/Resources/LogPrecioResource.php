@@ -13,7 +13,10 @@ use Filament\Resources\Form;
 
 class LogPrecioResource extends Resource
 {
-    protected static ?string $model = LogPrecio::class;
+    public static $model = LogPrecio::class;
+
+
+    
 
     public static function table(Table $table): Table
     {
@@ -31,7 +34,7 @@ class LogPrecioResource extends Resource
                     ->label('Farmacia'),
                 Tables\Filters\SelectFilter::make('product_id')
                     ->options(Product::all()->pluck('name', 'id'))
-                    ->label('Product'),
+                    ->label('Producto'),
             ]);
     }
 
