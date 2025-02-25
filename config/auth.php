@@ -40,6 +40,10 @@ return [
             'driver' => 'session',
             'provider' => 'users',
         ],
+        'filament' => [
+            'driver' => 'session',
+            'provider' => 'filament_users',  
+        ],
     ],
 
     /*
@@ -64,7 +68,10 @@ return [
             'driver' => 'eloquent',
             'model' => App\Models\User::class,
         ],
-
+'filament_users' => [
+        'driver' => 'eloquent',
+        'model' => App\Models\FilamentUser::class, 
+    ],
         // 'users' => [
         //     'driver' => 'database',
         //     'table' => 'users',

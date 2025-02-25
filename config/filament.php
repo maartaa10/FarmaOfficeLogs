@@ -66,6 +66,9 @@ return [
         'namespace' => 'App\\Filament\\Pages',
         'path' => app_path('Filament/Pages'),
     ],
+'dashboards' => [
+    \App\Filament\Dashboards\AdminDashboard::class,
+],
 
     /*
     |--------------------------------------------------------------------------
@@ -164,7 +167,7 @@ return [
 
     'middleware' => [
         'auth' => [
-            Authenticate::class,
+           'guard' => 'filament',
         ],
         'base' => [
             EncryptCookies::class,

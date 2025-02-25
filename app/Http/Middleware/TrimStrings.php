@@ -12,8 +12,17 @@ class TrimStrings extends Middleware
      * @var array<int, string>
      */
     protected $except = [
-        'current_password',
-        'password',
-        'password_confirmation',
+        //
     ];
+
+    /**
+     * Trim the given string.
+     *
+     * @param  mixed  $value
+     * @return mixed
+     */
+    protected function trim($value)
+    {
+        return is_string($value) ? trim($value) : $value;
+    }
 }
