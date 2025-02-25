@@ -23,4 +23,13 @@ class Metric extends Model
     ];
 
     public $timestamps = true;
+    public function farmacia()
+    {
+        return $this->belongsTo(Farmacia::class);
+    }
+
+    public function product()
+    {
+        return $this->belongsTo(Product::class);
+    }
 }
