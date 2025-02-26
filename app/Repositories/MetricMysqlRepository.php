@@ -18,7 +18,7 @@ class MetricMysqlRepository implements MetricRepositoryInterface
         }
     }
   
-    // 🔵 Buscar metrica per id
+    // Buscar metrica per id
     public function findById($id)
     {
         return Metric::find($id);

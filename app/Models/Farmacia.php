@@ -13,6 +13,6 @@ class Farmacia extends Model
 
     public function priceLogs()
     {
-        return $this->hasMany(PriceLog::class);
+        return $this->hasMany(Metric::class);
     }
 }

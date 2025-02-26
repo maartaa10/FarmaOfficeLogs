@@ -1,25 +1,26 @@
-<?php
+<?php 
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\PriceLogResource\Pages;
-use App\Models\PriceLog;
 use App\Models\Farmacia;
 use App\Models\Product;
-use Filament\Forms;
+use App\Models\Metric;
 use Filament\Resources\Resource;
 use Filament\Tables;
+use Filament\Forms;
+use App\Filament\Resources\PriceLogResource\Widgets\PriceLogChart;
 
 class PriceLogResource extends Resource
 {
-    protected static ?string $model = PriceLog::class;
+    protected static ?string $model = Metric::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-archive';
+    protected static ?string $navigationIcon = 'heroicon-o-chart-bar';
 
     public static function form(Forms\Form $form): Forms\Form
     {
         return $form
             ->schema([
-                Forms\Components\Select::make('farmacia_id')
+                Forms\Components\Select::make('pharmacy_id')
                     ->label('Farmacia')
                     ->options(Farmacia::all()->pluck('name', 'id')->toArray())
                     ->required(),
@@ -71,7 +72,7 @@ class PriceLogResource extends Resource
                 Tables\Columns\TextColumn::make('created_at')->label('Fecha'),
             ])
             ->filters([
-                Tables\Filters\SelectFilter::make('farmacia_id')
+                Tables\Filters\SelectFilter::make('pharmacy_id')
                     ->label('Farmacia')
                     ->options(Farmacia::all()->pluck('name', 'id')->toArray()),
 
@@ -87,6 +88,13 @@ class PriceLogResource extends Resource
             'index' => Pages\ListPriceLogs::route('/'),
             'create' => Pages\CreatePriceLog::route('/create'),
             'edit' => Pages\EditPriceLog::route('/{record}/edit'),
+        ];
+    }
+
+    public static function getWidgets(): array
+    {
+        return [
+            PriceLogChart::class,
         ];
     }
 }

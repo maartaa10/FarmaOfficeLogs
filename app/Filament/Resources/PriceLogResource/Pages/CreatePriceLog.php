@@ -7,7 +7,10 @@ use Filament\Resources\Pages\CreateRecord;
 
 class CreatePriceLog extends CreateRecord
 {
-    public static string $resource = PriceLogResource::class;
+    protected static string $resource = PriceLogResource::class;
 
-    public static string $view = 'filament.resources.price-log.create-price-log';
+    protected function getView(): string
+    {
+        return 'filament.resources.price-log.create-price-log';
+    }
 }

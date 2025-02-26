@@ -25,8 +25,9 @@ class Metric extends Model
     public $timestamps = true;
     public function farmacia()
     {
-        return $this->belongsTo(Farmacia::class);
+        return $this->belongsTo(Farmacia::class, 'pharmacy_id');
     }
+    
 
     public function product()
     {
