@@ -74,12 +74,13 @@ class PriceLogResource extends Resource
             ->filters([
                 Tables\Filters\SelectFilter::make('pharmacy_id')
                     ->label('Farmacia')
-                    ->options(Farmacia::all()->pluck('name', 'id')->toArray()),
-
+                    ->options(fn () => Farmacia::pluck('name', 'id')->toArray()),
+            
                 Tables\Filters\SelectFilter::make('product_id')
                     ->label('Producto')
-                    ->options(Product::all()->pluck('name', 'id')->toArray()),
+                    ->options(fn () => Product::pluck('name', 'id')->toArray()),
             ]);
+            
     }
 
     public static function getPages(): array

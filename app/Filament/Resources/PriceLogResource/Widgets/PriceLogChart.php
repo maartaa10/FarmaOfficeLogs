@@ -3,7 +3,10 @@
 namespace App\Filament\Resources\PriceLogResource\Widgets;
 
 use App\Models\Metric;
+use App\Models\Farmacia;
 use Filament\Widgets\LineChartWidget;
+use App\Models\Product;
+use Illuminate\Support\Facades\Log;
 
 class PriceLogChart extends LineChartWidget
 {
@@ -15,23 +18,22 @@ class PriceLogChart extends LineChartWidget
     protected function getData(): array
     {
         $query = Metric::query();
-
+    
         if ($this->pharmacy_id) {
             $query->where('pharmacy_id', $this->pharmacy_id);
         }
-
+    
         if ($this->product_id) {
             $query->where('product_id', $this->product_id);
         }
-
+    
         $metrics = $query->orderBy('change_date', 'asc')->get();
-
-        $labels = $metrics->pluck('change_date')->map(function ($date) {
-            return $date->format('Y-m-d');
-        })->toArray();
-
+    
+        $labels = $metrics->pluck('change_date')->map(fn ($date) => \Carbon\Carbon::parse($date)->format('Y-m-d'))->toArray();
         $data = $metrics->pluck('new_price')->toArray();
-
+    
+        Log::info('Datos de la gráfica:', ['labels' => $labels, 'data' => $data]); // 👀 Esto imprime los datos en storage/logs/laravel.log
+    
         return [
             'datasets' => [
                 [
@@ -45,18 +47,20 @@ class PriceLogChart extends LineChartWidget
             'labels' => $labels,
         ];
     }
+    
 
-    protected function getFilters(): array
-    {
-        return [
-            'pharmacy_id' => [
-                'label' => 'Farmacia',
-                'options' => Metric::pluck('pharmacy_id', 'pharmacy_id')->unique()->toArray(),
-            ],
-            'product_id' => [
-                'label' => 'Producto',
-                'options' => Metric::pluck('product_id', 'product_id')->unique()->toArray(),
-            ],
-        ];
-    }
+ protected function getFilters(): array
+{
+    return [
+        'pharmacy_id' => [
+            'label' => 'Farmacia',
+            'options' => fn () => Farmacia::pluck('name', 'id')->toArray(),
+        ],
+        'product_id' => [
+            'label' => 'Producto',
+            'options' => fn () => Product::pluck('name', 'id')->toArray(),
+        ],
+    ];
+}
+
 }

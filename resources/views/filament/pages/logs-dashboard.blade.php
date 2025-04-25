@@ -13,6 +13,7 @@
 
                 <x-filament::select name="pharmacy_id" label="Farmacia" :options="$pharmacies" wire:model="pharmacy_id" />
                 <x-filament::select name="product_id" label="Producto" :options="$products" wire:model="product_id" />
+                <x-filament::widget :widget="App\Filament\Resources\PriceLogResource\Widgets\PriceLogChart::class" />
 
                 <x-filament::button wire:click="filter">
                     {{ __('Filtrar') }}
